@@ -1,10 +1,13 @@
-
 Curriculum
+
 Short Specializations
+
 Average: 0.0%
 You just released the advanced tasks of this project. Have fun!
 0x00. ES6 Basics
+
 JavaScript
+
 ES6
  Weight: 1
  Project will start Aug 4, 2024 10:00 PM, must end by Aug 5, 2024 10:00 PM
