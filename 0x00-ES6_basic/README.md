@@ -1,6 +1,6 @@
 Curriculum
 
-Short Specializations
+Short Specializationsss
 
 Average: 0.0%
 You just released the advanced tasks of this project. Have fun!
