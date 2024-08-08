@@ -1,4 +1,4 @@
-import getResponseFromAPI from "./0-promise.js";
+import ClassRoom from "./0-classroom.js";
 
-const response = getResponseFromAPI();
-console.log(response instanceof Promise);
+const room = new ClassRoom(10);
+console.log(room._maxStudentsSize)
