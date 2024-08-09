@@ -1,7 +1,14 @@
-// 9-hoisting.js
+/* eslint-disable max-classes-per-file */
+/* eslint-disable no-underscore-dangle */
 
 export class HolbertonClass {
   constructor(year, location) {
+    if (typeof year !== 'number') {
+      throw new TypeError('Year must be a number');
+    }
+    if (typeof location !== 'string') {
+      throw new TypeError('Location must be a string');
+    }
     this._year = year;
     this._location = location;
   }
@@ -17,6 +24,12 @@ export class HolbertonClass {
 
 export class StudentHolberton {
   constructor(firstName, lastName, holbertonClass) {
+    if (typeof firstName !== 'string' || typeof lastName !== 'string') {
+      throw new TypeError('First name and last name must be strings');
+    }
+    if (!(holbertonClass instanceof HolbertonClass)) {
+      throw new TypeError('holbertonClass must be an instance of HolbertonClass');
+    }
     this._firstName = firstName;
     this._lastName = lastName;
     this._holbertonClass = holbertonClass;
@@ -35,7 +48,6 @@ export class StudentHolberton {
   }
 }
 
-// Creating instances
 const class2019 = new HolbertonClass(2019, 'San Francisco');
 const class2020 = new HolbertonClass(2020, 'San Francisco');
 
