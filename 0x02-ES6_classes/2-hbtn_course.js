@@ -1,60 +1,49 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-underscore-dangle */
-
 export default class HolbertonCourse {
   constructor(name, length, students) {
-    // Validate input types
-    if (typeof name !== 'string') {
-      throw new TypeError('Name must be a string');
-    }
-    if (typeof length !== 'number') {
-      throw new TypeError('Length must be a number');
-    }
-    if (!Array.isArray(students) || !students.every(student => typeof student === 'string')) {
-      throw new TypeError('Students must be an array of strings');
-    }
-
-    // Assign the validated values to underscore-prefixed properties
-    this._name = name;
-    this._length = length;
-    this._students = students;
+    this.name = name;
+    this.length = length;
+    this.students = students;
   }
 
-  // Getter for name
+  // Get name
   get name() {
     return this._name;
   }
 
-  // Setter for name with type validation
-  set name(value) {
-    if (typeof value !== 'string') {
+  // Set name
+  set name(name) {
+    if (typeof name === 'string') {
+      this._name = name;
+    } else {
       throw new TypeError('Name must be a string');
     }
-    this._name = value;
   }
 
-  // Getter for length
+  // length
   get length() {
     return this._length;
   }
 
-  // Setter for length with type validation
-  set length(value) {
-    if (typeof value !== 'number') {
+  set length(length) {
+    if (typeof length === 'number') {
+      this._length = length;
+    } else {
       throw new TypeError('Length must be a number');
     }
-    this._length = value;
   }
 
-  // Getter for students
+  // students
   get students() {
     return this._students;
   }
 
-  // Setter for students with type validation
-  set students(value) {
-    if (!Array.isArray(value) || !value.every(student => typeof student === 'string')) {
+  set students(students) {
+    if (Array.isArray(students) && students.every((s) => typeof s === 'string')) {
+      this._students - students;
+    } else {
       throw new TypeError('Students must be an array of strings');
     }
-    this._students = value;
   }
 }
