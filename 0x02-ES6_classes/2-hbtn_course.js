@@ -1,49 +1,60 @@
-/* eslint-disable no-unused-expressions */
+/* eslint-disable max-classes-per-file */
 /* eslint-disable no-underscore-dangle */
-export default class HolbertonCourse {
-  constructor(name, length, students) {
-    this.name = name;
-    this.length = length;
-    this.students = students;
-  }
 
-  // Get name
-  get name() {
-    return this._name;
-  }
-
-  // Set name
-  set name(name) {
-    if (typeof name === 'string') {
-      this._name = name;
-    } else {
-      throw new TypeError('Name must be a string');
+export class HolbertonClass {
+  constructor(year, location) {
+    if (typeof year !== 'number') {
+      throw new TypeError('Year must be a number');
     }
-  }
-
-  // length
-  get length() {
-    return this._length;
-  }
-
-  set length(length) {
-    if (typeof length === 'number') {
-      this._length = length;
-    } else {
-      throw new TypeError('Length must be a number');
+    if (typeof location !== 'string') {
+      throw new TypeError('Location must be a string');
     }
+    this._year = year;
+    this._location = location;
   }
 
-  // students
-  get students() {
-    return this._students;
+  get year() {
+    return this._year;
   }
 
-  set students(students) {
-    if (Array.isArray(students) && students.every((s) => typeof s === 'string')) {
-      this._students - students;
-    } else {
-      throw new TypeError('Students must be an array of strings');
-    }
+  get location() {
+    return this._location;
   }
 }
+
+export class StudentHolberton {
+  constructor(firstName, lastName, holbertonClass) {
+    if (typeof firstName !== 'string' || typeof lastName !== 'string') {
+      throw new TypeError('First name and last name must be strings');
+    }
+    if (!(holbertonClass instanceof HolbertonClass)) {
+      throw new TypeError('holbertonClass must be an instance of HolbertonClass');
+    }
+    this._firstName = firstName;
+    this._lastName = lastName;
+    this._holbertonClass = holbertonClass;
+  }
+
+  get fullName() {
+    return `${this._firstName} ${this._lastName}`;
+  }
+
+  get holbertonClass() {
+    return this._holbertonClass;
+  }
+
+  get fullStudentDescription() {
+    return `${this._firstName} ${this._lastName} - ${this._holbertonClass.year} - ${this._holbertonClass.location}`;
+  }
+}
+
+const class2019 = new HolbertonClass(2019, 'San Francisco');
+const class2020 = new HolbertonClass(2020, 'San Francisco');
+
+const student1 = new StudentHolberton('Guillaume', 'Salva', class2020);
+const student2 = new StudentHolberton('John', 'Doe', class2020);
+const student3 = new StudentHolberton('Albert', 'Clinton', class2019);
+const student4 = new StudentHolberton('Donald', 'Bush', class2019);
+const student5 = new StudentHolberton('Jason', 'Sandler', class2019);
+
+export const listOfStudents = [student1, student2, student3, student4, student5];
