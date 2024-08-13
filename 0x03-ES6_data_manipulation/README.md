@@ -1,55 +1,39 @@
+
 Curriculum
-
-Short Specialization
-
-Average: 0.0%
-You just released the advanced tasks of this project. Have fun!
-0x00. ES6 Basics
-
+Short Specializations
+Average: 77.7%
+0x03. ES6 data manipulation
 JavaScript
-
 ES6
  Weight: 1
- Project will start Aug 4, 2024 10:00 PM, must end by Aug 5, 2024 10:00 PM
- Checker was released at Aug 5, 2024 4:00 AM
+ Project will start Aug 11, 2024 10:00 PM, must end by Aug 13, 2024 10:00 PM
+ Checker was released at Aug 12, 2024 10:00 AM
  An auto review will be launched at the deadline
-Concepts
-For this project, we expect you to look at these concepts:
-
-JavaScript programming
-Software Linter
 
 
 Resources
 Read or watch:
 
-ECMAScript 6 - ECMAScript 2015
-Statements and declarations
-Arrow functions
-Default parameters
-Rest parameter
-Javascript ES6 — Iterables and Iterators
+Array
+Typed Array
+Set Data Structure
+Map Data Structure
+WeakMap
 Learning Objectives
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
 
-What ES6 is
-New features introduced in ES6
-The difference between a constant and a variable
-Block-scoped variables
-Arrow functions and function parameters default to them
-Rest and spread function parameters
-String templating in ES6
-Object creation and their properties in ES6
-Iterators and for-of loops
+How to use map, filter and reduce on arrays
+Typed arrays
+The Set, Map, and Weak link data structures
 Requirements
-General
 All your files will be executed on Ubuntu 18.04 LTS using NodeJS 12.11.x
 Allowed editors: vi, vim, emacs, Visual Studio Code
 All your files should end with a new line
 A README.md file, at the root of the folder of the project, is mandatory
 Your code should use the js extension
-Your code will be tested using the Jest Testing Framework
-Your code will be analyzed using the linter ESLint along with specific rules that we’ll provide
+Your code will be tested using Jest and the command npm run test
+Your code will be verified against lint using ESLint
+Your code needs to pass all the tests and lint. You can verify the entire project running npm run full-test
 All of your functions must be exported
 Setup
 Install NodeJS 12.11.x
@@ -66,567 +50,475 @@ Install Jest, Babel, and ESLint
 in your project directory, install Jest, Babel and ESList by using the supplied package.json and run npm install.
 
 Configuration files
-Add the files below to your project directory
+Add the following files to your project directory
 
 package.json
-Click here to show/hide file contents
+Click to show/hide file contents
+
+{
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint",
+    "check-lint": "lint [0-9]*.js",
+    "dev": "npx babel-node",
+    "test": "jest",
+    "full-test": "./node_modules/.bin/eslint [0-9]*.js && jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/node": "^7.8.0",
+    "@babel/preset-env": "^7.6.0",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.17.0",
+    "jest": "^24.9.0"
+  }
+}
+
 babel.config.js
-Click here to show/hide file contents
+Click to show/hide file contents
+
+module.exports = {
+  presets: [
+    [
+      '@babel/preset-env',
+      {
+        targets: {
+          node: 'current',
+        },
+      },
+    ],
+  ],
+};
+
 .eslintrc.js
-Click here to show/hide file contents
-Finally…
-Don’t forget to run npm install from the terminal of your project folder to install all necessary project dependencies.
+Click to show/hide file contents
+
+module.exports = {
+  env: {
+    browser: false,
+    es6: true,
+    jest: true,
+  },
+  extends: [
+    'airbnb-base',
+    'plugin:jest/all',
+  ],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+  },
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module',
+  },
+  plugins: ['jest'],
+  rules: {
+    'max-classes-per-file': 'off',
+    'no-underscore-dangle': 'off',
+    'no-console': 'off',
+    'no-shadow': 'off',
+    'no-restricted-syntax': [
+      'error',
+      'LabeledStatement',
+      'WithStatement',
+    ],
+  },
+  overrides:[
+    {
+      files: ['*.js'],
+      excludedFiles: 'babel.config.js',
+    }
+  ]
+};
+
+and…
+Don’t forget to run $ npm install when you have the package.json
 
 Tasks
-0. Const or let?
+0. Basic list of objects
 mandatory
-Modify
+Create a function named getListStudents that returns an array of objects.
 
-function taskFirst to instantiate variables using const
-function taskNext to instantiate variables using let
-export function taskFirst() {
-  var task = 'I prefer const when I can.';
-  return task;
-}
+Each object should have three attributes: id (Number), firstName (String), and location (String).
 
-export function getLast() {
-  return ' is okay';
-}
+The array contains the following students in order:
 
-export function taskNext() {
-  var combination = 'But sometimes let';
-  combination += getLast();
-
-  return combination;
-}
-Execution example:
-
+Guillaume, id: 1, in San Francisco
+James, id: 2, in Columbia
+Serena, id: 5, in San Francisco
 bob@dylan:~$ cat 0-main.js
-import { taskFirst, taskNext } from './0-constants.js';
+import getListStudents from "./0-get_list_students.js";
 
-console.log(`${taskFirst()} ${taskNext()}`);
+console.log(getListStudents());
 
 bob@dylan:~$ 
 bob@dylan:~$ npm run dev 0-main.js 
-I prefer const when I can. But sometimes let is okay
+[
+  { id: 1, firstName: 'Guillaume', location: 'San Francisco' },
+  { id: 2, firstName: 'James', location: 'Columbia' },
+  { id: 5, firstName: 'Serena', location: 'San Francisco' }
+]
 bob@dylan:~$ 
 Repo:
 
 GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 0-constants.js
+Directory: 0x03-ES6_data_manipulation
+File: 0-get_list_students.js
   
-1. Block Scope
+1. More mapping
 mandatory
-Given what you’ve read about var and hoisting, modify the variables inside the function taskBlock so that the variables aren’t overwritten inside the conditional block.
+Create a function getListStudentIds that returns an array of ids from a list of object.
 
-export default function taskBlock(trueOrFalse) {
-  var task = false;
-  var task2 = true;
+This function is taking one argument which is an array of objects - and this array is the same format as getListStudents from the previous task.
 
-  if (trueOrFalse) {
-    var task = true;
-    var task2 = false;
-  }
+If the argument is not an array, the function is returning an empty array.
 
-  return [task, task2];
-}
-Execution:
+You must use the map function on the array.
 
 bob@dylan:~$ cat 1-main.js
-import taskBlock from './1-block-scoped.js';
+import getListStudentIds from "./1-get_list_student_ids.js";
+import getListStudents from "./0-get_list_students.js";
 
-console.log(taskBlock(true));
-console.log(taskBlock(false));
-bob@dylan:~$
+console.log(getListStudentIds("hello"));
+console.log(getListStudentIds(getListStudents()));
+
+bob@dylan:~$ 
 bob@dylan:~$ npm run dev 1-main.js 
-[ false, true ]
-[ false, true ]
-bob@dylan:~$
+[]
+[ 1, 2, 5 ]
+bob@dylan:~$ 
 Repo:
 
 GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 1-block-scoped.js
+Directory: 0x03-ES6_data_manipulation
+File: 1-get_list_student_ids.js
   
-2. Arrow functions
+2. Filter
 mandatory
-Rewrite the following standard function to use ES6’s arrow syntax of the function add (it will be an anonymous function after)
+Create a function getStudentsByLocation that returns an array of objects who are located in a specific city.
 
-export default function getNeighborhoodsList() {
-  this.sanFranciscoNeighborhoods = ['SOMA', 'Union Square'];
+It should accept a list of students (from getListStudents) and a city (string) as parameters.
 
-  const self = this;
-  this.addNeighborhood = function add(newNeighborhood) {
-    self.sanFranciscoNeighborhoods.push(newNeighborhood);
-    return self.sanFranciscoNeighborhoods;
-  };
-}
-Execution:
+You must use the filter function on the array.
 
 bob@dylan:~$ cat 2-main.js
-import getNeighborhoodsList from './2-arrow.js';
+import getListStudents from "./0-get_list_students.js";
+import getStudentsByLocation from "./2-get_students_by_loc.js";
 
-const neighborhoodsList = new getNeighborhoodsList();
-const res = neighborhoodsList.addNeighborhood('Noe Valley');
-console.log(res);
-bob@dylan:~$
+const students = getListStudents();
+
+console.log(getStudentsByLocation(students, 'San Francisco'));
+
+bob@dylan:~$ 
 bob@dylan:~$ npm run dev 2-main.js 
-[ 'SOMA', 'Union Square', 'Noe Valley' ]
-bob@dylan:~$
+[
+  { id: 1, firstName: 'Guillaume', location: 'San Francisco' },
+  { id: 5, firstName: 'Serena', location: 'San Francisco' }
+]
+bob@dylan:~$ 
 Repo:
 
 GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 2-arrow.js
+Directory: 0x03-ES6_data_manipulation
+File: 2-get_students_by_loc.js
   
-3. Parameter defaults
+3. Reduce
 mandatory
-Condense the internals of the following function to 1 line - without changing the name of each function/variable.
+Create a function getStudentIdsSum that returns the sum of all the student ids.
 
-Hint: The key here to define default parameter values for the function parameters.
+It should accept a list of students (from getListStudents) as a parameter.
 
-export default function getSumOfHoods(initialNumber, expansion1989, expansion2019) {
-  if (expansion1989 === undefined) {
-    expansion1989 = 89;
-  }
-
-  if (expansion2019 === undefined) {
-    expansion2019 = 19;
-  }
-  return initialNumber + expansion1989 + expansion2019;
-}
-Execution:
+You must use the reduce function on the array.
 
 bob@dylan:~$ cat 3-main.js
-import getSumOfHoods from './3-default-parameter.js';
+import getListStudents from "./0-get_list_students.js";
+import getStudentIdsSum from "./3-get_ids_sum.js";
 
-console.log(getSumOfHoods(34));
-console.log(getSumOfHoods(34, 3));
-console.log(getSumOfHoods(34, 3, 4));
-bob@dylan:~$
+const students = getListStudents();
+const value = getStudentIdsSum(students);
+
+console.log(value);
+
+bob@dylan:~$ 
 bob@dylan:~$ npm run dev 3-main.js 
-142
-56
-41
-bob@dylan:~$
+8
+bob@dylan:~$ 
 Repo:
 
 GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 3-default-parameter.js
+Directory: 0x03-ES6_data_manipulation
+File: 3-get_ids_sum.js
   
-4. Rest parameter syntax for functions
+4. Combine
 mandatory
-Modify the following function to return the number of arguments passed to it using the rest parameter syntax
+Create a function updateStudentGradeByCity that returns an array of students for a specific city with their new grade
 
-export default function returnHowManyArguments() {
+It should accept a list of students (from getListStudents), a city (String), and newGrades (Array of “grade” objects) as parameters.
 
-}
-Example:
+newGrades is an array of objects with this format:
 
-> returnHowManyArguments("Hello", "Holberton", 2020);
-3
->
-Execution:
+  {
+    studentId: 31,
+    grade: 78,
+  }
+If a student doesn’t have grade in newGrades, the final grade should be N/A.
+
+You must use filter and map combined.
 
 bob@dylan:~$ cat 4-main.js
-import returnHowManyArguments from './4-rest-parameter.js';
+import getListStudents from "./0-get_list_students.js";
+import updateStudentGradeByCity from "./4-update_grade_by_city.js";
 
-console.log(returnHowManyArguments("one"));
-console.log(returnHowManyArguments("one", "two", 3, "4th"));
-bob@dylan:~$
+console.log(updateStudentGradeByCity(getListStudents(), "San Francisco", [{ studentId: 5, grade: 97 }, { studentId: 1, grade: 86 }]));
+
+console.log(updateStudentGradeByCity(getListStudents(), "San Francisco", [{ studentId: 5, grade: 97 }]));
+
+bob@dylan:~$ 
 bob@dylan:~$ npm run dev 4-main.js 
-1
-4
-bob@dylan:~$
+[
+  {
+    id: 1,
+    firstName: 'Guillaume',
+    location: 'San Francisco',
+    grade: 86
+  },
+  { id: 5, firstName: 'Serena', location: 'San Francisco', grade: 97 }
+]
+[
+  {
+    id: 1,
+    firstName: 'Guillaume',
+    location: 'San Francisco',
+    grade: 'N/A'
+  },
+  { id: 5, firstName: 'Serena', location: 'San Francisco', grade: 97 }
+]
+bob@dylan:~$ 
 Repo:
 
 GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 4-rest-parameter.js
+Directory: 0x03-ES6_data_manipulation
+File: 4-update_grade_by_city.js
   
-5. The wonders of spread syntax
+5. Typed Arrays
 mandatory
-Using spread syntax, concatenate 2 arrays and each character of a string by modifying the function below. Your function body should be one line long.
+Create a function named createInt8TypedArray that returns a new ArrayBuffer with an Int8 value at a specific position.
 
-export default function concatArrays(array1, array2, string) {
-}
-Execution:
+It should accept three arguments: length (Number), position (Number), and value (Number).
+
+If adding the value is not possible the error Position outside range should be thrown.
 
 bob@dylan:~$ cat 5-main.js
-import concatArrays from './5-spread-operator.js';
+import createInt8TypedArray from "./5-typed_arrays.js";
 
-console.log(concatArrays(['a', 'b'], ['c', 'd'], 'Hello'));
+console.log(createInt8TypedArray(10, 2, 89));
 
-bob@dylan:~$
+bob@dylan:~$ 
 bob@dylan:~$ npm run dev 5-main.js 
-[
-  'a', 'b', 'c',
-  'd', 'H', 'e',
-  'l', 'l', 'o'
-]
-bob@dylan:~$
+DataView {
+  byteLength: 10,
+  byteOffset: 0,
+  buffer: ArrayBuffer {
+    [Uint8Contents]: <00 00 59 00 00 00 00 00 00 00>,
+    byteLength: 10
+  }
+}
+bob@dylan:~$ 
 Repo:
 
 GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 5-spread-operator.js
+Directory: 0x03-ES6_data_manipulation
+File: 5-typed_arrays.js
   
-6. Take advantage of template literals
+6. Set data structure
 mandatory
-Rewrite the return statement to use a template literal so you can the substitute the variables you’ve defined.
+Create a function named setFromArray that returns a Set from an array.
 
-export default function getSanFranciscoDescription() {
-  const year = 2017;
-  const budget = {
-    income: '$119,868',
-    gdp: '$154.2 billion',
-    capita: '$178,479',
-  };
-
-  return 'As of ' + year + ', it was the seventh-highest income county in the United States'
-        / ', with a per capita personal income of ' + budget.income + '. As of 2015, San Francisco'
-        / ' proper had a GDP of ' + budget.gdp + ', and a GDP per capita of ' + budget.capita + '.';
-}
-Execution:
+It accepts an argument (Array, of any kind of element).
 
 bob@dylan:~$ cat 6-main.js
-import getSanFranciscoDescription from './6-string-interpolation.js';
+import setFromArray from "./6-set.js";
 
-console.log(getSanFranciscoDescription());
+console.log(setFromArray([12, 32, 15, 78, 98, 15]));
 
-bob@dylan:~$
+bob@dylan:~$ 
 bob@dylan:~$ npm run dev 6-main.js 
-As of 2017, it was the seventh-highest income county in the United States, with a per capita personal income of $119,868. As of 2015, San Francisco proper had a GDP of $154.2 billion, and a GDP per capita of $178,479.
-bob@dylan:~$
+Set { 12, 32, 15, 78, 98 }
+bob@dylan:~$ 
 Repo:
 
 GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 6-string-interpolation.js
+Directory: 0x03-ES6_data_manipulation
+File: 6-set.js
   
-7. Object property value shorthand syntax
+7. More set data structure
 mandatory
-Notice how the keys and the variable names are the same?
+Create a function named hasValuesFromArray that returns a boolean if all the elements in the array exist within the set.
 
-Modify the following function’s budget object to simply use the keyname instead.
-
-export default function getBudgetObject(income, gdp, capita) {
-  const budget = {
-    income: income,
-    gdp: gdp,
-    capita: capita,
-  };
-
-  return budget;
-}
-Execution:
+It accepts two arguments: a set (Set) and an array (Array).
 
 bob@dylan:~$ cat 7-main.js
-import getBudgetObject from './7-getBudgetObject.js';
+import hasValuesFromArray from "./7-has_array_values.js";
 
-console.log(getBudgetObject(400, 700, 900));
+console.log(hasValuesFromArray(new Set([1, 2, 3, 4, 5]), [1]));
+console.log(hasValuesFromArray(new Set([1, 2, 3, 4, 5]), [10]));
+console.log(hasValuesFromArray(new Set([1, 2, 3, 4, 5]), [1, 10]));
 
-bob@dylan:~$
+bob@dylan:~$ 
 bob@dylan:~$ npm run dev 7-main.js 
-{ income: 400, gdp: 700, capita: 900 }
-bob@dylan:~$
+true
+false
+false
+bob@dylan:~$ 
 Repo:
 
 GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 7-getBudgetObject.js
+Directory: 0x03-ES6_data_manipulation
+File: 7-has_array_values.js
   
-8. No need to create empty objects before adding in properties
+8. Clean set
 mandatory
-Rewrite the getBudgetForCurrentYear function to use ES6 computed property names on the budget object
+Create a function named cleanSet that returns a string of all the set values that start with a specific string (startString).
 
-function getCurrentYear() {
-  const date = new Date();
-  return date.getFullYear();
-}
+It accepts two arguments: a set (Set) and a startString (String).
 
-export default function getBudgetForCurrentYear(income, gdp, capita) {
-  const budget = {};
-
-  budget[`income-${getCurrentYear()}`] = income;
-  budget[`gdp-${getCurrentYear()}`] = gdp;
-  budget[`capita-${getCurrentYear()}`] = capita;
-
-  return budget;
-}
-Execution:
+When a value starts with startString you only append the rest of the string. The string contains all the values of the set separated by -.
 
 bob@dylan:~$ cat 8-main.js
-import getBudgetForCurrentYear from './8-getBudgetCurrentYear.js';
+import cleanSet from "./8-clean_set.js";
 
-console.log(getBudgetForCurrentYear(2100, 5200, 1090));
+console.log(cleanSet(new Set(['bonjovi', 'bonaparte', 'bonappetit', 'banana']), 'bon'));
+console.log(cleanSet(new Set(['bonjovi', 'bonaparte', 'bonappetit', 'banana']), ''));
 
-bob@dylan:~$
+bob@dylan:~$ 
 bob@dylan:~$ npm run dev 8-main.js 
-{ 'income-2021': 2100, 'gdp-2021': 5200, 'capita-2021': 1090 }
-bob@dylan:~$
+jovi-aparte-appetit
+
+bob@dylan:~$ 
 Repo:
 
 GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 8-getBudgetCurrentYear.js
+Directory: 0x03-ES6_data_manipulation
+File: 8-clean_set.js
   
-9. ES6 method properties
+9. Map data structure
 mandatory
-Rewrite getFullBudgetObject to use ES6 method properties in the fullBudget object
+Create a function named groceriesList that returns a map of groceries with the following items (name, quantity):
 
-import getBudgetObject from './7-getBudgetObject.js';
-
-export default function getFullBudgetObject(income, gdp, capita) {
-  const budget = getBudgetObject(income, gdp, capita);
-  const fullBudget = {
-    ...budget,
-    getIncomeInDollars: function (income) {
-      return `$${income}`;
-    },
-    getIncomeInEuros: function (income) {
-      return `${income} euros`;
-    },
-  };
-
-  return fullBudget;
-}
-Execution:
+Apples, 10
+Tomatoes, 10
+Pasta, 1
+Rice, 1
+Banana, 5
+Result:
 
 bob@dylan:~$ cat 9-main.js
-import getFullBudgetObject from './9-getFullBudget.js';
+import groceriesList from "./9-groceries_list.js";
 
-const fullBudget = getFullBudgetObject(20, 50, 10);
+console.log(groceriesList());
 
-console.log(fullBudget.getIncomeInDollars(fullBudget.income));
-console.log(fullBudget.getIncomeInEuros(fullBudget.income));
-
-bob@dylan:~$
+bob@dylan:~$ 
 bob@dylan:~$ npm run dev 9-main.js 
-$20
-20 euros
-bob@dylan:~$
+Map {
+  'Apples' => 10,
+  'Tomatoes' => 10,
+  'Pasta' => 1,
+  'Rice' => 1,
+  'Banana' => 5
+}
+bob@dylan:~$ 
 Repo:
 
 GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 9-getFullBudget.js
+Directory: 0x03-ES6_data_manipulation
+File: 9-groceries_list.js
   
-10. For...of Loops
+10. More map data structure
 mandatory
-Rewrite the function appendToEachArrayValue to use ES6’s for...of operator. And don’t forget that var is not ES6-friendly.
+Create a function named updateUniqueItems that returns an updated map for all items with initial quantity at 1.
 
-export default function appendToEachArrayValue(array, appendString) {
-  for (var idx in array) {
-    var value = array[idx];
-    array[idx] = appendString + value;
-  }
+It should accept a map as an argument. The map it accepts for argument is similar to the map you create in the previous task.
 
-  return array;
-}
-Execution:
+For each entry of the map where the quantity is 1, update the quantity to 100. If updating the quantity is not possible (argument is not a map) the error Cannot process should be thrown.
 
 bob@dylan:~$ cat 10-main.js
-import appendToEachArrayValue from './10-loops.js';
+import updateUniqueItems from "./10-update_uniq_items.js";
+import groceriesList from "./9-groceries_list.js";
 
-console.log(appendToEachArrayValue(['appended', 'fixed', 'displayed'], 'correctly-'));
+const map = groceriesList();
+console.log(map);
 
-bob@dylan:~$
+updateUniqueItems(map)
+console.log(map);
+
+bob@dylan:~$ 
 bob@dylan:~$ npm run dev 10-main.js 
-[ 'correctly-appended', 'correctly-fixed', 'correctly-displayed' ]
-bob@dylan:~$
+Map {
+  'Apples' => 10,
+  'Tomatoes' => 10,
+  'Pasta' => 1,
+  'Rice' => 1,
+  'Banana' => 5
+}
+Map {
+  'Apples' => 10,
+  'Tomatoes' => 10,
+  'Pasta' => 100,
+  'Rice' => 100,
+  'Banana' => 5
+}
+bob@dylan:~$ 
 Repo:
 
 GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 10-loops.js
+Directory: 0x03-ES6_data_manipulation
+File: 10-update_uniq_items.js
   
-11. Iterator
-mandatory
-Write a function named createEmployeesObject that will receive two arguments:
-
-departmentName (String)
-employees (Array of Strings)
-export default function createEmployeesObject(departmentName, employees) {
-
-}
-The function should return an object with the following format:
-
-{
-     $departmentName: [
-          $employees,
-     ],
-}
-Execution:
-
-bob@dylan:~$ cat 11-main.js
-import createEmployeesObject from './11-createEmployeesObject.js';
-
-console.log(createEmployeesObject("Software", [ "Bob", "Sylvie" ]));
-
-bob@dylan:~$
-bob@dylan:~$ npm run dev 11-main.js 
-{ Software: [ 'Bob', 'Sylvie' ] }
-bob@dylan:~$
-Repo:
-
-GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 11-createEmployeesObject.js
-  
-12. Let's create a report object
-mandatory
-Write a function named createReportObject whose parameter, employeesList, is the return value of the previous function createEmployeesObject.
-
-export default function createReportObject(employeesList) {
-
-}
-createReportObject should return an object containing the key allEmployees and a method property called getNumberOfDepartments.
-
-allEmployees is a key that maps to an object containing the department name and a list of all the employees in that department. If you’re having trouble, use the spread syntax.
-
-The method property receives employeesList and returns the number of departments. I would suggest suggest thinking back to the ES6 method property syntax.
-
-{
-  allEmployees: {
-     engineering: [
-          'John Doe',
-          'Guillaume Salva',
-     ],
-  },
-};
-Execution:
-
-bob@dylan:~$ cat 12-main.js
-import createEmployeesObject from './11-createEmployeesObject.js';
-import createReportObject from './12-createReportObject.js';
-
-const employees = {
-    ...createEmployeesObject('engineering', ['Bob', 'Jane']),
-    ...createEmployeesObject('marketing', ['Sylvie'])
-};      
-
-const report = createReportObject(employees);
-console.log(report.allEmployees);
-console.log(report.getNumberOfDepartments(report.allEmployees));
-
-bob@dylan:~$
-bob@dylan:~$ npm run dev 12-main.js 
-{ engineering: [ 'Bob', 'Jane' ], marketing: [ 'Sylvie' ] }
-2
-bob@dylan:~$
-Repo:
-
-GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 12-createReportObject.js
-  
-13. Iterating through report objects
+11. Weak link data structure
 #advanced
-Write a function named createIteratorObject, that will take into argument a report Object created with the previous function createReportObject.
+Export a const instance of WeakMap and name it weakMap.
 
-This function will return an iterator to go through every employee in every department.
+Export a new function named queryAPI. It should accept an endpoint argument like so:
 
-export default function createIteratorObject(report) {
+  {
+    protocol: 'http',
+    name: 'getUsers',
+  }
+Track within the weakMap the number of times queryAPI is called for each endpoint.
 
-}
-Execution:
+When the number of queries is >= 5 throw an error with the message Endpoint load is high.
 
 bob@dylan:~$ cat 100-main.js
-import createIteratorObject from "./100-createIteratorObject.js";
+import { queryAPI, weakMap } from "./100-weak.js";
 
-import createEmployeesObject from './11-createEmployeesObject.js';
-import createReportObject from './12-createReportObject.js';
+const endpoint = { protocol: 'http', name: 'getUsers' };
+weakMap.get(endpoint);
 
-const employees = {
-    ...createEmployeesObject('engineering', ['Bob', 'Jane']),
-    ...createEmployeesObject('marketing', ['Sylvie'])
-};
+queryAPI(endpoint);
+console.log(weakMap.get(endpoint));
 
-const report = createReportObject(employees);
+queryAPI(endpoint);
+console.log(weakMap.get(endpoint));
 
-const reportWithIterator = createIteratorObject(report);
+queryAPI(endpoint);
+queryAPI(endpoint);
+queryAPI(endpoint);
+queryAPI(endpoint);
 
-for (const item of reportWithIterator) {
-    console.log(item);
-}
-
-bob@dylan:~$
+bob@dylan:~$ 
 bob@dylan:~$ npm run dev 100-main.js 
-Bob
-Jane
-Sylvie
-bob@dylan:~$
+1
+2
+.../100-weak.js:16
+    throw new Error('Endpoint load is high');
+   ...
+bob@dylan:~$ 
 Repo:
 
 GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 100-createIteratorObject.js
-  
-14. Iterate through object
-#advanced
-Finally, write a function named iterateThroughObject. The function’s parameter reportWithIterator is the return value from createIteratorObject.
-
- export default function iterateThroughObject(reportWithIterator) {
-
- }
-It should return every employee name in a string, separated by |
-
-{
-  allEmployees: {
-     engineering: [
-          'John Doe',
-          'Guillaume Salva',
-     ],
-  },
-  ...
-};
-Should return John Doe | Guillaume Salva
-
-Reminder - the functions will be imported by the test suite.
-
-Full example:
-
-> employees = {
-      ...createEmployeesObject('engineering', engineering),
-      ...createEmployeesObject('design', design),
-    };
->
-> const report = createReportObject(employees);
-> const reportWithIterator = createIteratorObject(report);
-> iterateThroughObject(reportWithIterator)
-'John Doe | Guillaume Salva | Kanye East | Jay Li'
-> 
-Execution:
-
-bob@dylan:~$ cat 101-main.js
-import createEmployeesObject from "./11-createEmployeesObject.js";
-import createReportObject from './12-createReportObject.js';
-import createIteratorObject from './100-createIteratorObject.js';
-import iterateThroughObject from './101-iterateThroughObject.js';
-
-
-const employees = {
-    ...createEmployeesObject('engineering', ['Bob', 'Jane']),
-    ...createEmployeesObject('marketing', ['Sylvie'])
-};
-
-const report = createReportObject(employees);
-const reportWithIterator = createIteratorObject(report);
-
-console.log(iterateThroughObject(reportWithIterator));
-
-bob@dylan:~$
-bob@dylan:~$ npm run dev 101-main.js 
-Bob | Jane | Sylvie
-bob@dylan:~$
-Repo:
-
-GitHub repository: alx-backend-javascript
-Directory: 0x00-ES6_basic
-File: 101-iterateThroughObject.js
+Directory: 0x03-ES6_data_manipulation
+File: 100-weak.js
   
 Copyright © 2024 ALX, All rights reserved.
 
