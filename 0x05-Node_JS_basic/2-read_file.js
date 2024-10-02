@@ -1,37 +1,41 @@
 const fs = require('fs');
 
+/**
+ * Count students in a CSV database.
+ * @param {string} fileName - The path to the CSV file.
+ */
 function countStudents(fileName) {
   const students = {};
   const fields = {};
-  let length = 0;
+  let studentCount = 0;
+
   try {
     const fileContents = fs.readFileSync(fileName, 'utf-8');
     const lines = fileContents.toString().split('\n');
-    for (const element of lines) {
-      if (element) {
-        length += 1;
-        const field = element.toString().split(',');
-        if (Object.prototype.hasOwnProperty.call(students, field[3])) {
-          students[field[3]].push(field[0]);
+
+    lines.forEach((line) => {
+      if (line) {
+        studentCount += 1;
+        const fieldData = line.split(',');
+        const field = fieldData[3]; // Assuming field is the fourth column
+
+        if (students[field]) {
+          students[field].push(fieldData[0]); // Add student name
         } else {
-          students[field[3]] = [field[0]];
+          students[field] = [fieldData[0]]; // Initialize array with student name
         }
-        if (Object.prototype.hasOwnProperty.call(fields, field[3])) {
-          fields[field[3]] += 1;
-        } else {
-          fields[field[3]] = 1;
-        }
+
+        fields[field] = (fields[field] || 0) + 1; // Increment count
       }
-    }
-    const l = length - 1;
-    console.log(`Number of students: ${l}`);
-    for (const [key, value] of Object.entries(fields)) {
-      if (key !== 'field') {
-        console.log(`Number of students in ${key}: ${value}. List: ${students[key].join(', ')}`);
-      }
-    }
+    });
+
+    console.log(`Number of students: ${studentCount - 1}`); // Exclude header
+    Object.entries(fields).forEach(([key, value]) => {
+      console.log(`Number of students in ${key}: ${value}. List: ${students[key].join(', ')}`);
+    });
+
   } catch (error) {
-    throw Error('Cannot load the database');
+    throw new Error('Cannot load the database');
   }
 }
 
