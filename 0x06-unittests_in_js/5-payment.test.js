@@ -1,25 +1,26 @@
-import sendPaymentRequestToAPI from './5-payment';
+const { expect } = require('chai');
+const { it, describe } = require('mocha');
+const sinon = require('sinon');
 
-describe('sendPaymentRequestToAPI', () => {
-  let consoleSpy;
+const Utils = require('./utils.js');
+const sendPaymentRequestToApi = require('./5-payment.js');
 
+describe('', () => {
+  let spyBoy;
   beforeEach(() => {
-    consoleSpy = jest.spyOn(console, 'log');
+    spyBoy = sinon.spy(console, 'log');
   });
-
   afterEach(() => {
-    consoleSpy.mockRestore();
+    sinon.restore();
   });
-
-  test('should log the total when called with 100 and 20', () => {
-    sendPaymentRequestToAPI(100, 20);
-    expect(consoleSpy).toHaveBeenCalledWith('The total is: 120');
-    expect(consoleSpy).toHaveBeenCalledTimes(1);
+  it('checking if numbers round with spies and stubs 1st', () => {
+    sendPaymentRequestToApi(100, 20);
+    expect(spyBoy.calledOnce).to.be.true;
+    expect(spyBoy.calledWith('The total is: 120')).to.be.true;
   });
-
-  test('should log the total when called with 10 and 10', () => {
-    sendPaymentRequestToAPI(10, 10);
-    expect(consoleSpy).toHaveBeenCalledWith('The total is: 20');
-    expect(consoleSpy).toHaveBeenCalledTimes(1);
+  it('checking if numbers round with spies and stubs 2nd', () => {
+    sendPaymentRequestToApi(10, 10);
+    expect(spyBoy.calledOnce).to.be.true;
+    expect(spyBoy.calledWith('The total is: 20')).to.be.true;
   });
 });
